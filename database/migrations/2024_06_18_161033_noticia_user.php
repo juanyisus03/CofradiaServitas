@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('noticias', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo', 500);
-            $table->date('fecha');
-            $table->boolean('soloHermano')->default(false);
-            $table->string('contenido', 500);
-            $table->string('img')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('noticia_id');
+            $table->boolean('notificado')->default(false);
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('noticias');
+        //
     }
 };

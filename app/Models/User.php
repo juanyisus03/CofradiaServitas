@@ -8,12 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
-use App\Models\Paso;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
+
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
@@ -62,6 +61,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function noticias(){
+        return $this->belongsToMany(Noticia::class);
     }
 
 }
