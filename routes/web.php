@@ -22,11 +22,25 @@ Route::middleware([
     Route::resource('tronos', TronoController::class)->middleware(RangoAltoMiddleware::class);
     Route::resource('users', UserController::class)->middleware(AdminMiddleware::class);
 });
-Route::resource('noticias', NoticiaController::class);
-Route::get('/list', function(){
-    $noticias = Noticia::paginate(4);
+
+
+Route::get('/list', function () {
+    $noticias = Noticia::paginate(6);
     return view('noticias.list', compact('noticias'));
-});
+})->middleware(RangoAltoMiddleware::class);
+
+
+Route::get('noticias/create', 'NoticiaController@create')->name('noticias.create')->middleware(RangoAltoMiddleware::class);
+Route::post('noticias', 'NoticiaController@store')->name('noticias.store')->middleware(RangoAltoMiddleware::class);
+Route::get('noticias/{noticia}/edit', 'NoticiaController@edit')->name('noticias.edit')->middleware(RangoAltoMiddleware::class);
+Route::put('noticias/{noticia}', 'NoticiaController@update')->name('noticias.update')->middleware(RangoAltoMiddleware::class);
+Route::delete('noticias/{noticia}', 'NoticiaController@destroy')->name('noticias.destroy')->middleware(RangoAltoMiddleware::class);
+
+
+Route::get('noticias/{noticia}', 'NoticiaController@show')->name('noticias.show');
+Route::get('noticias', 'NoticiaController@index')->name('noticias.index');
+Route::resource('noticias', NoticiaController::class);
+
 
 
 
