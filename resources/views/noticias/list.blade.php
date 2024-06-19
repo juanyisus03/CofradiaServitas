@@ -56,6 +56,11 @@
                         Añadir Noticia nuevo
                     </a>
                 </div>
+                <div class="mx-7 mb-5">
+                    <a href="{{route('noticias.enviarRecordatorio')}}" class="text-white bg-primary font-medium rounded-full text-sm px-5 py-2.5 text-center">
+                        Mandar Recordatorios
+                    </a>
+                </div>
             </div>
         </div>
     </div>

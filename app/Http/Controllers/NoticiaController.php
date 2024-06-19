@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RecordatorioMail;
 use Illuminate\Http\Request;
 use App\Models\Noticia;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
-use function Livewire\store;
 
 class NoticiaController extends Controller
 {
@@ -151,6 +153,34 @@ class NoticiaController extends Controller
             'noticias' => $noticias,
         ]);
     }
+
+    public function enviarCorreos(){
+        $noticias = Noticia::all();
+        foreach ($noticias as $noticia){
+            foreach ($noticia->users as $usuario) {
+                Mail::to($usuario->email)->send(new RecordatorioMail($usuario, $noticia));
+                $usuario->noticias()->updateExistingPivot($noticia->id, ['notificado' => 1]);
+            }
+        }
+        return redirect()->route('noticias.list');
+    }
+
+    public function subscribir($noticia_id){
+        $noticia = Noticia::find($noticia_id);
+        $user = User::find(Auth::user()->id);
+
+        if ($user->noticias()->where('noticia_id', $noticia->id)->exists()) {
+            return redirect()->back()->with('error', 'Ya estás suscrito a esta noticia.');
+        }
+        else{
+            $user->noticias()->attach($noticia);
+        }
+
+        return redirect()->route('noticias.show', ['noticia' => $noticia->id]);
+
+
+    }
+
 
 
 

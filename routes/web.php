@@ -23,6 +23,7 @@ Route::middleware([
     Route::resource('users', UserController::class)->middleware(AdminMiddleware::class);
 });
 
+Route::post('subscribirse/{noticia}', [NoticiaController::class, 'subscribir'])->name('suscribir');
 
 Route::get('/list', [NoticiaController::class, 'list'])->name('noticias.list')->middleware(RangoAltoMiddleware::class);
 
@@ -36,6 +37,7 @@ Route::delete('noticias/{noticia}', [NoticiaController::class, 'destroy'])->name
 
 Route::get('noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
 Route::get('noticias', [NoticiaController::class, 'index'])->name('noticias.index');
+Route::get('/enviar-correo', [NoticiaController::class, 'enviarCorreos'])->name('noticias.enviarRecordatorio')->middleware(RangoAltoMiddleware::class);
 
 
 

@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('noticia_id');
             $table->boolean('notificado')->default(false);
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('noticia_id')->references('id')->on('noticias')->onDelete('cascade');
         });
     }
 
