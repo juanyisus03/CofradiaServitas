@@ -24,22 +24,19 @@ Route::middleware([
 });
 
 
-Route::get('/list', function () {
-    $noticias = Noticia::paginate(6);
-    return view('noticias.list', compact('noticias'));
-})->middleware(RangoAltoMiddleware::class);
+Route::get('/list', [NoticiaController::class, 'list'])->name('noticias.list')->middleware(RangoAltoMiddleware::class);
 
 
-Route::get('noticias/create', 'NoticiaController@create')->name('noticias.create')->middleware(RangoAltoMiddleware::class);
-Route::post('noticias', 'NoticiaController@store')->name('noticias.store')->middleware(RangoAltoMiddleware::class);
-Route::get('noticias/{noticia}/edit', 'NoticiaController@edit')->name('noticias.edit')->middleware(RangoAltoMiddleware::class);
-Route::put('noticias/{noticia}', 'NoticiaController@update')->name('noticias.update')->middleware(RangoAltoMiddleware::class);
-Route::delete('noticias/{noticia}', 'NoticiaController@destroy')->name('noticias.destroy')->middleware(RangoAltoMiddleware::class);
+Route::get('noticias/create', [NoticiaController::class, 'create'])->name('noticias.create')->middleware(RangoAltoMiddleware::class);
+Route::post('noticias', [NoticiaController::class, 'store'])->name('noticias.store')->middleware(RangoAltoMiddleware::class);
+Route::get('noticias/{noticia}/edit',[NoticiaController::class, 'edit'])->name('noticias.edit')->middleware(RangoAltoMiddleware::class);
+Route::put('noticias/{noticia}', [NoticiaController::class, 'update'])->name('noticias.update')->middleware(RangoAltoMiddleware::class);
+Route::delete('noticias/{noticia}', [NoticiaController::class, 'destroy'])->name('noticias.destroy')->middleware(RangoAltoMiddleware::class);
 
 
-Route::get('noticias/{noticia}', 'NoticiaController@show')->name('noticias.show');
-Route::get('noticias', 'NoticiaController@index')->name('noticias.index');
-Route::resource('noticias', NoticiaController::class);
+Route::get('noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+Route::get('noticias', [NoticiaController::class, 'index'])->name('noticias.index');
+
 
 
 

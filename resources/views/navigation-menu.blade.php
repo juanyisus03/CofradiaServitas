@@ -20,7 +20,26 @@
                     </a>
                 </div>
 
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @php
+                        $active = request()->routeIs('noticias.index');
+                    @endphp
+                    <a href="{{ route('noticias.index') }}" class="{{ $active ? 'inline-flex items-center px-1 pt-1 border-b-2 border-primary text-sm font-medium leading-5 text-texto focus:outline-none focus:border-primary transition duration-150 ease-in-out' : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-accent hover:text-texto hover:border-primary focus:outline-none focus:text-texto focus:border-secondary transition duration-150 ease-in-out' }}">
+                        {{ __('Noticias') }}
+                    </a>
+                </div>
+
+
                 @ifRangoAlto
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @php
+                        $active = request()->routeIs('noticias.list');
+                    @endphp
+                    <a href="{{ route('noticias.list') }}" class="{{ $active ? 'inline-flex items-center px-1 pt-1 border-b-2 border-primary text-sm font-medium leading-5 text-texto focus:outline-none focus:border-primary transition duration-150 ease-in-out' : 'inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-accent hover:text-texto hover:border-primary focus:outline-none focus:text-texto focus:border-secondary transition duration-150 ease-in-out' }}">
+                        {{ __('Gestionar Noticias') }}
+                    </a>
+                </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         @php
                             $active = request()->routeIs('tronos.index');

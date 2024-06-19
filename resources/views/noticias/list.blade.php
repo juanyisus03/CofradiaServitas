@@ -4,7 +4,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h1 class="text-xl font-semibold text-texto text-center my-10">Listado de Noticias</h1>
             <div class="bg-darkerprimary overflow-hidden sm:rounded-lg">
-                @if(count($noticias) === 0)
+                @if($noticias->isEmpty())
                     <h1 class="text-xl font-semibold text-accent text-center my-10">Todavía no has añadido ninguna Noticia</h1>
                 @else
                     <table class="w-full text-sm text-left">
