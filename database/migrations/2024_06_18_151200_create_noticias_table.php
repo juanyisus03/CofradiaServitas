@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('titulo', 500);
             $table->date('fecha');
             $table->boolean('soloHermano')->default(false);
-            $table->string('contenido', 500);
-            $table->string('img')->nullable();
+            $table->text('contenido');
+            $table->string('img');
+            $table->timestamps();
         });
     }
 

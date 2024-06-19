@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             TronosTableSeeder::class,
             UsersTableSeeder::class,
             EnsersTableSeeder::class,
+            NoticiasSeeder::class,
         ]);
     }
 }
