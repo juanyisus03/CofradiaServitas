@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\enviarEmails;
 use App\Mail\RecordatorioMail;
 use Illuminate\Http\Request;
 use App\Models\Noticia;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
-
+use Carbon\Carbon;
 
 class NoticiaController extends Controller
 {
@@ -155,13 +156,19 @@ class NoticiaController extends Controller
     }
 
     public function enviarCorreos(){
-        $noticias = Noticia::all();
-        foreach ($noticias as $noticia){
+        $now = Carbon::now();
+
+        $unaSemanaDespues = $now->copy()->addWeek();
+
+        $noticias = Noticia::whereBetween('fecha', [$now, $unaSemanaDespues])->get();
+
+        foreach ($noticias as $noticia) {
             foreach ($noticia->users as $usuario) {
-                Mail::to($usuario->email)->send(new RecordatorioMail($usuario, $noticia));
-                $usuario->noticias()->updateExistingPivot($noticia->id, ['notificado' => 1]);
+                enviarEmails::dispatch($usuario,$noticia);
             }
         }
+
+
         return redirect()->route('noticias.list');
     }
 

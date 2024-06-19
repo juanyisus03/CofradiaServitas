@@ -9,7 +9,7 @@
                     </h1>
 
                     <div class="mx-auto my-4 text-center">
-                        <img class="mx-auto" src="{{ asset('storage/' . $noticia->img) }}" alt="{{ $noticia->titulo }}">
+                        <img class="mx-auto w-2/3 h-auto" src="{{ asset('storage/' . $noticia->img) }}" alt="{{ $noticia->titulo }}">
                     </div>
 
                     <div class="text-accent text-center leading-relaxed">
@@ -21,16 +21,13 @@
                             <form action="{{ route('suscribir', ['noticia' => $noticia->id]) }}" method="POST">
                                 @csrf
                                 @if (Auth::user()->noticias->contains($noticia))
-                                    <button type="submit"
-                                        class="bg-primary text-texto font-bold py-2 px-4 rounded">
+                                    <button type="submit" class="bg-primary text-texto font-bold py-2 px-4 rounded">
                                         Desuscribirse
                                     </button>
                                 @else
-                                    <button type="submit"
-                                        class="bg-primary  text-texto font-bold py-2 px-4 rounded">
+                                    <button type="submit" class="bg-primary text-texto font-bold py-2 px-4 rounded">
                                         Suscribirse
                                     </button>
-
                                 @endif
                             </form>
                         </div>
